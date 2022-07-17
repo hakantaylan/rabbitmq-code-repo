@@ -40,7 +40,10 @@ public class PushPullManuelAck {
     }
 
 
-    //    Pull model manual Ack
+//        Pull model manual Ack
+//    It is more troublesome to manually ack in the pull mode.
+//    There is no corresponding method in the RabbitTemplate encapsulated in Spring,
+//    so we have to use the native method, as follows:
     public void receive2() {
         RabbitTemplate rabbitTemplate = new RabbitTemplate(); // Don't do this. Autowire it!!!
         Channel channel = rabbitTemplate.getConnectionFactory().createConnection().createChannel(true);
