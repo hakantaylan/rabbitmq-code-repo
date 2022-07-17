@@ -1,10 +1,10 @@
-data/rmq0/*
-data/rmq1/*
-data/rmq2/*
+!data/rmq0/.gitkeep
+!data/rmq1/.gitkeep
+!data/rmq2/.gitkeep
 tmp/
-log/rmq0/*
-log/rmq1/*
-log/rmq2/*
+!log/rmq0/.gitkeep
+!log/rmq1/.gitkeep
+!log/rmq2/.gitkeep
 
 target/
 !.mvn/wrapper/maven-wrapper.jar
