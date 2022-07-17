@@ -1,3 +1,7 @@
-data/
+data/rmq0/*
+data/rmq1/*
+data/rmq2/*
 tmp/
-log*/
+log/rmq0/*
+log/rmq1/*
+log/rmq2/*
