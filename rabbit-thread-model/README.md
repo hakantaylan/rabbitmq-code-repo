@@ -7,5 +7,5 @@ docker run -d --name myrabbit -it --rm  -p 5672:5672 -p 15672:15672 rabbitmq:3-m
 ya da
 docker run -d --name myrabbit -it --rm  -p 5672:5672 -p 15672:15672 rabbitmq:3-management-alpine
 
-Her ikisi de luan için 3.11.14'ü indiriyor. 12c beta release
-http://localhost:15672/ üzerinden guest/guest bilgileriyle rabbitmq web admin console açılabilir
+Her ikisi de luan iÃ§in 3.11.14'Ã¼ indiriyor. 12c beta release
+http://localhost:15672/ Ã¼zerinden guest/guest bilgileriyle rabbitmq web admin console aÃ§Ä±labilir
