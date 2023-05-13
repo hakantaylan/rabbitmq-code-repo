@@ -4,6 +4,9 @@ services:
   rmq0:
     image: rabbitmq-local:latest
     hostname: rmq0
+    ports:
+      - "3000:15672"
+      - "5671:5672"
     volumes:
       - ./data/rmq0:/var/lib/rabbitmq/mnesia
       - ./log/rmq0:/var/log/rabbitmq
@@ -15,6 +18,9 @@ services:
   rmq1:
     image: rabbitmq-local:latest
     hostname: rmq1
+    ports:
+      - "3001:15672"
+      - "5672:5672"
     volumes:
       - ./data/rmq1:/var/lib/rabbitmq/mnesia
       - ./log/rmq1:/var/log/rabbitmq
@@ -26,6 +32,9 @@ services:
   rmq2:
     image: rabbitmq-local:latest
     hostname: rmq2
+    ports:
+      - "3002:15672"
+      - "5673:5672"
     environment:
       - LOG=debug
     volumes:
@@ -36,36 +45,36 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-  perf-test:
-    image: pivotalrabbitmq/perf-test:latest
-    command:
-      - --uri=amqp://guest:guest@rmq0:5672
-#      - --uri=amqp://guest:guest@haproxy:5672
-      - --servers-startup-timeout=30
-      - --rate=100
-      - --producers=4
-      - --consumers=4
-      - --flag=persistent
-      - --flag=mandatory
-      - --confirm=4
-      - --time=30
-    depends_on:
-      - haproxy
-    restart: on-failure
-  haproxy:
-    image: haproxy:latest
-    hostname: haproxy
-    volumes:
-      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
-    depends_on:
-      rmq0:
-        condition: service_healthy
-      rmq1:
-        condition: service_healthy
-      rmq2:
-        condition: service_healthy
-    ports:
-      # HOST:CONTAINER
-      - 1936:1936
-      - 15672:15672
-      - 5672:5672
+#  perf-test:
+#    image: pivotalrabbitmq/perf-test:latest
+#    command:
+#      - --uri=amqp://guest:guest@rmq0:5672
+##      - --uri=amqp://guest:guest@haproxy:5672
+#      - --servers-startup-timeout=30
+#      - --rate=100
+#      - --producers=4
+#      - --consumers=4
+#      - --flag=persistent
+#      - --flag=mandatory
+#      - --confirm=4
+#      - --time=30
+#    depends_on:
+#      - haproxy
+#    restart: on-failure
+#  haproxy:
+#    image: haproxy:latest
+#    hostname: haproxy
+#    volumes:
+#      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+#    depends_on:
+#      rmq0:
+#        condition: service_healthy
+#      rmq1:
+#        condition: service_healthy
+#      rmq2:
+#        condition: service_healthy
+#    ports:
+#      # HOST:CONTAINER
+#      - 1936:1936
+#      - 15672:15672
+#      - 5672:5672

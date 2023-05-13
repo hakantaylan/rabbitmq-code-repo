@@ -1,9 +1,10 @@
 package com.example.cluster;
 
 import org.springframework.amqp.core.*;
-import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.Map;
 
 @Configuration
 public class RabbitConfig {
@@ -26,6 +27,24 @@ public class RabbitConfig {
     @Bean
     Binding binding(Queue queue, DirectExchange exchange) {
         return BindingBuilder.bind(queue).to(exchange).with("routMe");
+    }
+
+    @Bean
+    public Declarables declarables() {
+//        Queue classicQueue = new Queue("q.classic-demo", false, false, false, Map.of(
+//                "x-queue-mode", "lazy"
+//        ));
+        Queue quorumQueue = new Queue("q.quorum-demo", true, false, false, Map.of(
+                "x-queue-type", "quorum", "ha-mode", "exactly", "ha-params", "1", "ha-sync-mode", "automatic"
+        ));
+//        Queue streamQueue = new Queue("q.stream-demo", true, false, false, Map.of(
+//                "x-queue-type", "stream"
+//        ));
+        return new Declarables(
+//                classicQueue,
+                quorumQueue
+//                streamQueue
+        );
     }
 
 //    @Bean
